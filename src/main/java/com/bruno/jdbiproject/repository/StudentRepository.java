@@ -1,16 +1,13 @@
 package com.bruno.jdbiproject.repository;
 
 import com.bruno.jdbiproject.entity.Student;
-import com.bruno.jdbiproject.mapper.StudentMapper;
-import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
-import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import org.springframework.stereotype.Repository;
 
-@Repository
-@RegisterBeanMapper(value = StudentMapper.class)
+import java.util.List;
+
 public interface StudentRepository {
 
-    @SqlUpdate
+    List<Student> getAllStudents();
+
     void insert(Student student);
 
 }

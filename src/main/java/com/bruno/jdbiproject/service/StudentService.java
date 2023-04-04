@@ -7,16 +7,22 @@ import com.bruno.jdbiproject.repository.StudentRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Component
 public class StudentService {
 
     private final StudentRepository repository;
-    private StudentMapper mapper;
+    private final StudentMapper mapper;
 
     public StudentService(StudentRepository repository, StudentMapper mapper){
         this.repository = repository;
         this.mapper = mapper;
+    }
+
+    public List<StudentDTO> getAllStudents(){
+        return mapper.entityToDto(repository.getAllStudents());
     }
 
     public void save(StudentDTO studentDTO){

@@ -1,15 +1,17 @@
 package com.bruno.jdbiproject.dto;
 
-import com.bruno.jdbiproject.entity.Stage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class StudentDTO {
 
     private String name;
     private int age;
-    private Stage stage;
 
 }
