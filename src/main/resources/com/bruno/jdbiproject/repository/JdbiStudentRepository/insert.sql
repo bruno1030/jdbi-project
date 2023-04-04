@@ -1,10 +1,14 @@
 INSERT INTO tb_student
 (
     name,
-    age
+    age,
+    stage,
+    registrationDate
 )
 VALUES
 (
     :student.name,
-    :student.age
+    :student.age,
+    :student.stage,
+    :student.registrationDate
 )

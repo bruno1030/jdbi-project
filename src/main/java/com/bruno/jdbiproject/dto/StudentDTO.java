@@ -11,7 +11,9 @@ import lombok.Setter;
 @Setter
 public class StudentDTO {
 
+    private int id;
     private String name;
     private int age;
+    private String stage;
 
 }
