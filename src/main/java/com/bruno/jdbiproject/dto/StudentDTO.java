@@ -15,5 +15,7 @@ public class StudentDTO {
     private String name;
     private int age;
     private String stage;
+    private String registry;
+    private String registrationDate;
 
 }

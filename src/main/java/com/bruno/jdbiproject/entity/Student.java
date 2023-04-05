@@ -18,5 +18,6 @@ public class Student {
     private int age;
     private Stage stage;
     private Date registrationDate;
+    private String registry;
 
 }

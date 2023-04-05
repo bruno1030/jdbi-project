@@ -10,4 +10,7 @@ public interface StudentRepository {
 
     void insert(Student student);
 
+    void insertRegistry(Student student);
+
+    List<Student> getStudentsInDebt();
 }

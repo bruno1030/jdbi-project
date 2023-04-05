@@ -25,4 +25,13 @@ public interface JdbiStudentRepository extends StudentRepository {
     @SqlUpdate
     void insert(@BindBean("student") Student student);
 
+    @Override
+    @SqlUpdate
+    void insertRegistry(@BindBean("student") Student student);
+
+    @Override
+    @SqlQuery
+    @UseRowMapper(StudentMapper.class)
+    List<Student> getStudentsInDebt();
+
 }

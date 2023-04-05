@@ -3,6 +3,7 @@ package com.bruno.jdbiproject.mapper;
 import com.bruno.jdbiproject.dto.StudentDTO;
 import com.bruno.jdbiproject.entity.Stage;
 import com.bruno.jdbiproject.entity.Student;
+import com.bruno.jdbiproject.utils.RegistryCreator;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,8 @@ public class StudentMapper implements RowMapper<Student> {
             student.setName(rs.getString("name"));
             student.setAge(rs.getInt("age"));
             student.setStage(Stage.valueOf(rs.getString("stage")));
-            student.setRegistrationDate(rs.getDate("registrationDate"));
+            student.setRegistrationDate(rs.getTimestamp("registration_date"));
+            student.setRegistry(rs.getString("registry"));
             return student;
         }catch(IllegalArgumentException error){
             throw new SQLException(error.getMessage());
@@ -32,11 +34,20 @@ public class StudentMapper implements RowMapper<Student> {
     }
 
     public Student dtoToEntity(StudentDTO studentDTO) {
+
+        Date registrationDate = new Date();
+        String name = studentDTO.getName().trim();
+        String registryNumbers = RegistryCreator.getRegistryNumber(registrationDate);
+        String firstCharForRegistry = String.valueOf(name.charAt(0));
+        String lastCharForRegistry = name.substring(name.length()-1);
+        String registry = firstCharForRegistry + lastCharForRegistry + registryNumbers;
+
         Student student = new Student();
-        student.setName(studentDTO.getName());
+        student.setName(name);
         student.setAge(studentDTO.getAge());
         student.setStage(getStudentStage(studentDTO.getStage()));
-        student.setRegistrationDate(new Date());
+        student.setRegistrationDate(registrationDate);
+        student.setRegistry(registry);
 
         return student;
     }
@@ -49,6 +60,19 @@ public class StudentMapper implements RowMapper<Student> {
             dto.setName(students.get(i).getName());
             dto.setAge(students.get(i).getAge());
             dto.setStage(students.get(i).getStage().toString());
+            dto.setRegistrationDate(students.get(i).getRegistrationDate().toString());
+            dto.setRegistry(students.get(i).getRegistry());
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    public List<StudentDTO> entityToDtoInDebt(List<Student> students) {
+        List<StudentDTO> dtoList = new ArrayList<>();
+        for (int i = 0; i < students.size(); i++) {
+            StudentDTO dto = new StudentDTO();
+            dto.setName(students.get(i).getName());
+            dto.setRegistry(students.get(i).getRegistry());
             dtoList.add(dto);
         }
         return dtoList;

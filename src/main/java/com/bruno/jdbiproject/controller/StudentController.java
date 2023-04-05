@@ -31,4 +31,9 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/inDebt")
+    public ResponseEntity getStudentsInDebt(){
+        return new ResponseEntity(service.getStudentsInDebit(), HttpStatus.OK);
+    }
+
 }
